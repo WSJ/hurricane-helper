@@ -1,0 +1,16 @@
+certifi==2017.7.27.1
+chardet==3.0.4
+dateparser==0.6.0
+feedparser==5.2.1
+geojson==2.0.0
+idna==2.6
+pyshp==1.2.10
+python-dateutil==2.6.1
+pytz==2017.2
+regex==2017.7.28
+requests==2.18.4
+ruamel.ordereddict==0.4.13
+ruamel.yaml==0.15.32
+six==1.10.0
+tzlocal==1.4
+urllib3==1.22
