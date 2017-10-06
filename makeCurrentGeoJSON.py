@@ -129,7 +129,21 @@ def parseProperties(p,shp_type,component,storm,remnant_flag,shape_index):
         if shp_type == "forecast":
             #%Y-%m-%d %I:%M %p %a
             #convert to GMT and then drop the timezone reference
-            o["datetime"] = dateparser.parse(p["FLDATELBL"],settings={"TO_TIMEZONE": "UTC"}).replace(tzinfo=None).isoformat()
+            #first forecast time is the same as the advisory issue date
+            if shape_index == 0:
+                time_fragment = p["ADVDATE"].split(" ")[0]
+                if time_fragment.isdigit() and (3 <= len(time_fragment) <= 4):
+                    time_fragment_formatted = time_fragment[:-2] + ":" + time_fragment[-2:]
+                    if time_fragment_formatted == p["DATELBL"].split(" ")[0]:
+                        o["datetime"] = dateparser.parse(time_fragment_formatted + " " + p["ADVDATE"].split(" ",1)[1],settings={"TO_TIMEZONE": "UTC"}).replace(tzinfo=None).isoformat()
+                    else:
+                        print "advisory hour/label hour mismatch"
+                        raise ValueError
+                else:
+                    print "problem extracting hours from",p["ADVDATE"]
+                    raise ValueError
+            else:
+                o["datetime"] =           dateparser.parse(p["FLDATELBL"],settings={"TO_TIMEZONE": "UTC"}).replace(tzinfo=None).isoformat()
             #pressure in millibars or none
             if p["MSLP"] == "9999.0":
                 o["pressure"] = None

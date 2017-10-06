@@ -39,15 +39,13 @@ Other categories may be reported.
 
 ### Problems solved
 * Forecasts are produced in "local" time, while historical positions are recorded in UTC/GMT. This standardizes all times to UTC/GMT.
+* The full datetime shown by the NHC for the first point in the forecast, labeled "current center location," is reported in a different field than following forecast points. This uses the `ADVDATE` field for the current storm location, and `FLDATELBL` for the rest of the forecast, pending clarification from NHC.
 * Small, unimportant tropical disturbances are included in the official RSS feed. This outputs only named storms.
 * Sometimes the forecast cones are not in the shapefiles. This suppresses the output until all features are present for each storm.
 * Wind speeds are reported in knots. This converts to miles per hour using the correct precision.
 * Hurricane numbers aren't specified. This puts each hurricane on the 1-5 scale.
-* Nonexistent values are given as `-9999.0`. This changes those to `None` (Python)/`null` (JavaScript).
+* Nonexistent values are given as `9999.0`. This changes those to `None` (Python)/`null` (JavaScript).
 * Storms disappear after they are no longer tracked. This saves the last data for each storm to a file for that storm.
-
-### Mysteries
-The last historical point and the first forecast point have the same `datetime` but different locations. This may be because the first forecast point contains some uncertainty.
 
 ## Development
 `sh setup.sh` to create a Python virtual environment and install requirements
