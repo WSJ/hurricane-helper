@@ -13,4 +13,4 @@ ruamel.ordereddict==0.4.13
 ruamel.yaml==0.15.32
 six==1.10.0
 tzlocal==1.4
-urllib3==1.22
+urllib3==1.26.5
